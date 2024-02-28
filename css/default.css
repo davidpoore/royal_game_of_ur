@@ -1,0 +1,34 @@
+td {
+	height: 40px;
+	width: 40px;
+	border: 1px solid black;
+}
+
+td.empty {
+	border: none;
+	pointer-events: none;
+}
+
+td.star {
+	background-image: url(../images/star.svg);
+	background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+	background-origin: content-box,padding-box;
+}
+
+.piece {
+	height: 25px;
+  width: 25px;
+	border-radius: 50%;
+	display: inline-block;
+}
+
+.p1 {
+	background-color: red;
+
+}
+
+.p2 {
+	background-color: blue;
+}

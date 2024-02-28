@@ -1,0 +1,51 @@
+Setup:
+
+Each player has 7 pieces in Reserve
+
+
+
+Board shape:
+
+-------------
+| * |   | * |
+-------------
+|   |   |   |
+-------------
+|   |   |   |
+-------------
+|p1s| * |p2s|
+-------------
+    |   |
+		-----
+ p1e|   |p2e
+-------------
+| * |   | * |
+-------------
+|   |   |   |
+-------------
+
+
+
+Turn Order:
+
+Start of Turn
+Roll dice (4d2 - can have a value of either 0 or 1 with a 50% chance for either)
+If Die Roll > 0
+	If any pieces On Board OR in Reserve
+		Move Piece from Reserve to Board a number of spaces equal to Die Roll
+		OR
+		Move Piece on Board a number of spaces equal to Die Roll
+			UNLESS
+			The space is a Star space (safe space)
+			OR
+			Space is occupied by your own piece
+		OR
+		Move Piece off the Board to Home
+			IF
+			Roll is exactly enough to reach Home
+	At End of Move
+		If piece on same space as Opponent piece - return Opponent piece to Reserve
+		If piece is off Board, piece is Out of Play
+		If no pieces On Board or In Reserve, Active Player wins
+		If piece is on Star space, return to Start of Turn for Active Player
+Opponent becomes Active Player
