@@ -37,24 +37,20 @@ td.star {
 	background-color: blue;
 }
 
-span.die-1 {
+span.die {
 	display: inline-block;
 	width: 30px;
 	height: 30px;
-	background-image: url(../images/triangle_with_pip.svg);
 	background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 	background-origin: content-box,padding-box;
 }
 
+span.die-1 {
+	background-image: url(../images/triangle_with_pip.svg);
+}
+
 span.die-0 {
-	display: inline-block;
-	width: 30px;
-	height: 30px;
 	background-image: url(../images/triangle.svg);
-	background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-	background-origin: content-box,padding-box;
 }

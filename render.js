@@ -47,6 +47,7 @@ export const renderLastDiceRoll = (lastDiceRoll) => {
 		
 		lastDiceRoll.forEach((die) => {
 			const dieEl = document.createElement("span");
+			dieEl.classList.add("die");
 			dieEl.classList.add(`die-${die}`);
 			diceEl.appendChild(dieEl);
 		});
