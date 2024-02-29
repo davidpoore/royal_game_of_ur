@@ -24,6 +24,10 @@ td.star {
 	display: inline-block;
 }
 
+.piece.selectedPiece {
+	border: 2px solid green;
+}
+
 .p1 {
 	background-color: red;
 

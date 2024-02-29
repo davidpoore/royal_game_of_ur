@@ -13,8 +13,32 @@ const renderReservePiece = (piece) => {
 	pieceEl.classList.add(`p${piece.playerId}`);
 	pieceEl.classList.add("piece");
 	pieceEl.id = `player-${piece.playerId}-piece-${piece.id}`;
+	pieceEl.dataset.playerId = piece.playerId;
+	pieceEl.dataset.pieceId = piece.id
 	document.getElementById(`player-${piece.playerId}-reserves`).appendChild(pieceEl);
 }
+
+const clearSelectedPiece = () => {
+	const selectedPieceEls = document.getElementsByClassName("selectedPiece");
+	if (selectedPieceEls.length > 0) {
+		for (let selectedPieceEl of selectedPieceEls) {
+			selectedPieceEl.classList.remove("selectedPiece");
+		}
+	}
+}
+
+export const renderSelectedPiece = (piece) => {
+	// clear previous selection
+	clearSelectedPiece();
+
+	// addclass to newly selected piece
+	const pieceEl = document.getElementById(`player-${piece.playerId}-piece-${piece.id}`);
+	pieceEl.classList.add("selectedPiece");
+
+	// DEBUG: render selected piece info
+	const selectedPieceEl = document.getElementById("selectedPieceInfo");
+	selectedPieceEl.innerHTML = `Player ${piece.playerId}'s piece with id ${piece.id}`;
+};
 
 export const renderLastDiceRoll = (lastDiceRoll) => {
 	if (lastDiceRoll.length === 4) {
@@ -33,18 +57,18 @@ export const renderLastDiceRoll = (lastDiceRoll) => {
 	}
 }
 
-const renderActivePlayerId = (activePlayerId) => {
+export const renderActivePlayerId = (activePlayerId) => {
 	document.getElementById("activePlayerId").innerHTML = activePlayerId;
 }
 
-const renderCurrentTurnStep = (currentTurnStep) => {
+export const renderCurrentTurnStep = (currentTurnStep) => {
 	document.getElementById("currentTurnStep").innerHTML = currentTurnStep;
 }
 
 export const renderGameState = (gameState) => {
 	// DEBUG: view active player
-	const activePlayerId = gameState.activePlayerId;
-	renderActivePlayerId(activePlayerId);
+	const activePlayer = gameState.activePlayer;
+	renderActivePlayerId(activePlayer.id);
 	
 	// DEBUG: view current turn step
 	const currentTurnStep = gameState.currentTurnStep;

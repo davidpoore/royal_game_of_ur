@@ -5,6 +5,6 @@ import { renderGameState } from "./render.js";
 const GAME_STATE = new GameState();
 
 window.onload = () => {
-	bindEventListeners(GAME_STATE);
 	renderGameState(GAME_STATE);
+	bindEventListeners(GAME_STATE);
 }
