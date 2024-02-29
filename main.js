@@ -1,5 +1,7 @@
 import GameState from "./gameState.js";
 
+const GAME_STATE = new GameState();
+
 const renderReservePiece = (playerId, pieceId) => {
 	const pieceEl = document.createElement("span");
 	pieceEl.classList.add(`p${playerId}`);
@@ -12,14 +14,19 @@ const renderActivePlayerId = (activePlayerId) => {
 	document.getElementById("activePlayerId").innerHTML = activePlayerId;
 }
 
+const renderCurrentTurnStep = (currentTurnStep) => {
+	document.getElementById("currentTurnStep").innerHTML = currentTurnStep;
+}
+
 const renderGameState = () => {
-	const gameState = JSON.parse(sessionStorage.getItem("gameState"));
-	
-	const activePlayerId = gameState.activePlayerId;
+	const activePlayerId = GAME_STATE.activePlayerId;
 	renderActivePlayerId(activePlayerId);
 	
-	const playerOne = gameState.playerOne;
-	const playerTwo = gameState.playerTwo;
+	const currentTurnStep = GAME_STATE.currentTurnStep;
+	renderCurrentTurnStep(currentTurnStep);
+
+	const playerOne = GAME_STATE.playerOne;
+	const playerTwo = GAME_STATE.playerTwo;
 	
 	playerOne.pieces.forEach((piece) => {
 		if (piece.position === "reserve") {
@@ -35,7 +42,5 @@ const renderGameState = () => {
 }
 
 window.onload = () => {
-	const gameState = new GameState();
-	sessionStorage.setItem("gameState", JSON.stringify(gameState));
 	renderGameState();
 }
