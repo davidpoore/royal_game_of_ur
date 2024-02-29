@@ -18,13 +18,17 @@ const renderReservePiece = (piece) => {
 	document.getElementById(`player-${piece.playerId}-reserves`).appendChild(pieceEl);
 }
 
-const clearSelectedPiece = () => {
+export const clearSelectedPiece = () => {
 	const selectedPieceEls = document.getElementsByClassName("selectedPiece");
 	if (selectedPieceEls.length > 0) {
 		for (let selectedPieceEl of selectedPieceEls) {
 			selectedPieceEl.classList.remove("selectedPiece");
 		}
 	}
+
+	// DEBUG: clear selected piece info
+	const selectedPieceEl = document.getElementById("selectedPieceInfo");
+	selectedPieceEl.innerHTML = '';
 }
 
 export const renderSelectedPiece = (piece) => {
@@ -40,10 +44,14 @@ export const renderSelectedPiece = (piece) => {
 	selectedPieceEl.innerHTML = `Player ${piece.playerId}'s piece with id ${piece.id}`;
 };
 
+export const clearLastDiceRoll = () => {
+	const diceEl = document.getElementById("lastDiceRoll");
+	diceEl.innerHTML = '';
+}
+
 export const renderLastDiceRoll = (lastDiceRoll) => {
 	if (lastDiceRoll.length === 4) {
 		const diceEl = document.getElementById("lastDiceRoll");
-		diceEl.innerHTML = '';
 		
 		lastDiceRoll.forEach((die) => {
 			const dieEl = document.createElement("span");
