@@ -12,7 +12,10 @@ export default class GameState {
     this.playerTwo = new Player(2);
 		this.activePlayerId = this.playerOne.id;
 		this.currentTurnStep = TURN_STEPS.ROLL;
+		this.lastDiceRoll = [];
 	}
 
 	static get turnSteps() { return TURN_STEPS; }
+
+	get players() { return [this.playerOne, this.playerTwo]; }
 }
