@@ -1,6 +1,15 @@
-import { rollDice } from "./dice.js";
-import { renderLastDiceRoll, renderCurrentTurnStep, renderActivePlayerId, renderSelectedPiece, clearSelectedPiece, clearLastDiceRoll } from "./render.js";
+import { rollDice, sumDiceRoll } from "./dice.js";
+import { renderLastDiceRoll, renderCurrentTurnStep, renderActivePlayerId, renderSelectedPiece, renderValidMoves, renderPieces, clearValidMoves, clearSelectedPiece, clearLastDiceRoll } from "./render.js";
 import GameState from "./gameState.js";
+
+export const pieceClickCallback = (e, gameState) => {
+	if (gameState.currentTurnStep === GameState.turnSteps.MOVE && parseInt(e.target.dataset.playerId) === gameState.activePlayer.id) {
+		const piece = gameState.activePlayer.pieces.find((p) => p.id === parseInt(e.target.dataset.pieceId));
+		gameState.selectedPiece = piece;
+		renderSelectedPiece(piece);
+		renderValidMoves(piece, gameState.lastDiceRoll);
+	}
+}
 
 export const bindEventListeners = (gameState) => {
 	// dice roll listener
@@ -11,9 +20,16 @@ export const bindEventListeners = (gameState) => {
 		gameState.currentTurnStep = GameState.turnSteps.MOVE;
 		renderCurrentTurnStep(gameState.currentTurnStep);
 
-		// disable roll dice button & enable move button (debug only)
+		// disable roll dice button
 		e.target.disabled = true;
-		document.getElementById("debugMovePiece").disabled = false;
+
+		// if die roll is 0, move to pass turn automatically
+		if (sumDiceRoll(gameState.lastDiceRoll) === 0) {
+			gameState.currentTurnStep = GameState.turnSteps.PASS;
+			renderCurrentTurnStep(gameState.currentTurnStep);
+
+			document.getElementById("passTurn").disabled = false;
+		}
 	});
 
 	// pass turn listener
@@ -38,28 +54,36 @@ export const bindEventListeners = (gameState) => {
 		document.getElementById("rollDice").disabled = false;
 	});
 
-	// select piece listener
-	const pieceEls = document.getElementsByClassName("piece");
-	for (let pieceEl of pieceEls) {
-		pieceEl.addEventListener("click", (e) => {
-			if (gameState.currentTurnStep === GameState.turnSteps.MOVE && parseInt(e.target.dataset.playerId) === gameState.activePlayer.id) {
-				const piece = gameState.activePlayer.pieces.find((p) => p.id === parseInt(e.target.dataset.pieceId));
-				gameState.selectedPiece = piece;
-				renderSelectedPiece(piece);
+	// select valid space listener
+	const spaceEls = document.getElementsByClassName("space");
+	for (let spaceEl of spaceEls) {
+		spaceEl.addEventListener("click", (e) => {
+			if(spaceEl.classList.contains("valid")) {
+				gameState.selectedPiece.position = parseInt(e.target.dataset.position);
+
+				// check for any opponent pieces in position
+				const opponent = gameState.players.find((p) => p.id !== gameState.activePlayer.id);
+				opponent.pieces.forEach((piece) => {
+					if (!GameState.nonSharedSpaces.includes(piece.position) && piece.position === gameState.selectedPiece.position) {
+						// send to reserves
+						piece.position = 0;
+					}
+				})
+				renderPieces(opponent.pieces, gameState);
+
+				clearValidMoves();
+				renderPieces(gameState.activePlayer.pieces, gameState);
+
+				// rebind click listener
+				// document.getElementById(`player-${gameState.selectedPiece.player.id}-piece-${gameState.selectedPiece.id}`).addEventListener("click", (e) => { pieceClickCallback(e, gameState); });
+
+				clearSelectedPiece();
+				gameState.selectedPiece = null;
+				gameState.currentTurnStep = GameState.turnSteps.PASS;
+				renderCurrentTurnStep(gameState.currentTurnStep);
+
+				document.getElementById("passTurn").disabled = false;
 			}
-		});
+		})
 	}
-
-	// DEBUG: intermediate "move" handler to test turn order
-	document.getElementById("debugMovePiece").addEventListener("click", (e) => {
-		// set turn step to pass after setting active player
-		clearSelectedPiece();
-		gameState.selectedPiece = null;
-		gameState.currentTurnStep = GameState.turnSteps.PASS;
-		renderCurrentTurnStep(gameState.currentTurnStep);
-
-		// enable pass turn button & disable move button (debug only)
-		e.target.disabled = true;
-		document.getElementById("passTurn").disabled = false;
-	});
 }

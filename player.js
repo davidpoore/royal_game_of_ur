@@ -6,7 +6,7 @@ export default class Player {
 		this.id = id;
 		this.pieces = [];
 		for (let i = 0; i < NUM_PIECES; i++) {
-			this.pieces.push(new Piece(i, this.id, "reserve"));
+			this.pieces.push(new Piece(i, this, 0));
 		}
 	}
 	

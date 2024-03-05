@@ -1,7 +1,7 @@
 export default class Piece {
-  constructor(id, playerId, position) {
+  constructor(id, player, position) {
 		this.id = id;
-    this.playerId = playerId;
+    this.player = player;
     this.position = position;
 		this.selected = false;
 	}

@@ -6,6 +6,8 @@ const TURN_STEPS = {
 	PASS: "pass"
 }
 
+const NON_SHARED_SPACES = [1,2,3,4,13,14];
+
 export default class GameState {
 	constructor() {
 		this.playerOne = new Player(1);
@@ -17,6 +19,8 @@ export default class GameState {
 	}
 
 	static get turnSteps() { return TURN_STEPS; }
+
+	static get nonSharedSpaces() { return NON_SHARED_SPACES; }
 
 	get players() { return [this.playerOne, this.playerTwo]; }
 }

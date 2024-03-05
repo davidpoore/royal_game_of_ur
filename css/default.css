@@ -9,12 +9,16 @@ td.empty {
 	pointer-events: none;
 }
 
-td.star {
+.space.star {
 	background-image: url(../images/star.svg);
 	background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 	background-origin: content-box,padding-box;
+}
+
+.space.valid {
+	background-color: yellow;
 }
 
 .piece {
