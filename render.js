@@ -3,6 +3,11 @@ import GameState from "./gameState.js";
 import { pieceClickCallback } from "./listeners.js";
 
 const renderPiece = (piece, gameState) => {
+	// piece in HOME aren't rendered
+	if (piece.position === 15) {
+	  return;
+	}
+
 	const pieceEl = document.createElement("span");
 	pieceEl.classList.add(`p${piece.player.id}`);
 	pieceEl.classList.add("piece");
@@ -107,6 +112,11 @@ export const renderCurrentTurnStep = (currentTurnStep) => {
 	document.getElementById("currentTurnStep").innerHTML = currentTurnStep;
 }
 
+export const renderScores = (gameState) => {
+	document.getElementById("player-1-score").innerHTML = gameState.playerOne.score;
+	document.getElementById("player-2-score").innerHTML = gameState.playerTwo.score;
+}
+
 export const renderValidMoves = (gameState) => {
 	// clear previous selected piece valid moves
 	clearValidMoves();
@@ -126,7 +136,9 @@ export const renderValidMoves = (gameState) => {
 	// check if any piece for this player already in that space
 	const piecePositions = player.pieces.map((p) => { return p.position });
 
-	if (piecePositions.includes(validPosition)) {
+  // can't go beyond the HOME space so 15 is the max
+	// also, the only position that can have multiple because they aren't rendered & is final space
+	if ((piecePositions.includes(validPosition) && validPosition !== 15) || validPosition > 15) {
 		return; // early return, not a valid move for this piece
 	}
 
@@ -163,4 +175,7 @@ export const renderGameState = (gameState) => {
 	// render dice roll results
 	const lastDiceRoll = gameState.lastDiceRoll;
 	renderLastDiceRoll(lastDiceRoll);
+
+	// render scores
+	renderScores(gameState);
 }

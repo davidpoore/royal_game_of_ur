@@ -11,4 +11,7 @@ export default class Player {
 	}
 	
 	static get numPieces() { return NUM_PIECES; }
+
+	// position 15 is "HOME" and counts as a scored piece
+	get score() { return this.pieces.filter((p) => p.position === 15).length; }
 }

@@ -1,5 +1,5 @@
 import { rollDice, sumDiceRoll } from "./dice.js";
-import { renderLastDiceRoll, renderCurrentTurnStep, renderActivePlayerId, renderSelectedPiece, renderValidMoves, renderPieces, clearValidMoves, clearSelectedPiece, clearLastDiceRoll } from "./render.js";
+import { renderLastDiceRoll, renderCurrentTurnStep, renderActivePlayerId, renderSelectedPiece, renderValidMoves, renderPieces, renderScores, clearValidMoves, clearSelectedPiece, clearLastDiceRoll } from "./render.js";
 import GameState from "./gameState.js";
 
 export const pieceClickCallback = (e, gameState) => {
@@ -58,7 +58,7 @@ export const bindEventListeners = (gameState) => {
 	const spaceEls = document.getElementsByClassName("space");
 	for (let spaceEl of spaceEls) {
 		spaceEl.addEventListener("click", (e) => {
-			if(spaceEl.classList.contains("valid")) {
+			if(spaceEl.classList.contains("valid") && gameState.selectedPiece) {
 				gameState.selectedPiece.position = parseInt(e.target.dataset.position);
 
 				// check for any opponent pieces in position
@@ -81,6 +81,9 @@ export const bindEventListeners = (gameState) => {
 				gameState.selectedPiece = null;
 				gameState.currentTurnStep = GameState.turnSteps.PASS;
 				renderCurrentTurnStep(gameState.currentTurnStep);
+
+				// render scores
+				renderScores(gameState);
 
 				document.getElementById("passTurn").disabled = false;
 			}

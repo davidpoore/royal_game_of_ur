@@ -5,8 +5,11 @@ td {
 }
 
 td.empty {
-	border: none;
 	pointer-events: none;
+}
+
+td.empty, td.home {
+	border: none;
 }
 
 .space.star {

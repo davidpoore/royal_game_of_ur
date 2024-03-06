@@ -6,7 +6,7 @@ const TURN_STEPS = {
 	PASS: "pass"
 }
 
-const NON_SHARED_SPACES = [1,2,3,4,13,14];
+const NON_SHARED_SPACES = [1,2,3,4,13,14,15];
 
 export default class GameState {
 	constructor() {
