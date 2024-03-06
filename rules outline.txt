@@ -36,7 +36,7 @@ If Die Roll > 0
 		OR
 		Move Piece on Board a number of spaces equal to Die Roll
 			UNLESS
-			The space is a Star space (safe space)
+			The space is a Star space (safe space) and occupied by an enemy piece
 			OR
 			Space is occupied by your own piece
 		OR

@@ -107,22 +107,43 @@ export const renderCurrentTurnStep = (currentTurnStep) => {
 	document.getElementById("currentTurnStep").innerHTML = currentTurnStep;
 }
 
-export const renderValidMoves = (selectedPiece, dieRoll) => {
+export const renderValidMoves = (gameState) => {
+	// clear previous selected piece valid moves
+	clearValidMoves();
+
+	const selectedPiece = gameState.selectedPiece;
+	const dieRoll = gameState.lastDiceRoll;
 	const rollTotal = sumDiceRoll(dieRoll);
 	const player = selectedPiece.player;
+	let opponent;
+	if (gameState.activePlayer.id === gameState.playerOne.id) {
+		opponent = gameState.playerTwo;
+	} else {
+		opponent = gameState.playerOne;
+	}
+
 	const validPosition = selectedPiece.position + rollTotal;
 	// check if any piece for this player already in that space
-	const piecePositions = player.pieces.map((p) => { return p.position })
+	const piecePositions = player.pieces.map((p) => { return p.position });
+
 	if (piecePositions.includes(validPosition)) {
 		return; // early return, not a valid move for this piece
 	}
 
 	let validSpace;
 	if (GameState.nonSharedSpaces.includes(validPosition)) {
-		validSpace = document.getElementById(`player-${player.id}-space-${validPosition}`)
+		validSpace = document.getElementById(`player-${player.id}-space-${validPosition}`);
 	} else {
-		validSpace = document.getElementById(`space-${validPosition}`)
+		validSpace = document.getElementById(`space-${validPosition}`);
+
+		// check if space is a star AND has an opponent's piece (stars are safe)
+		if (validSpace.classList.contains("star") && opponent.pieces.map((p) => { return p.position }).includes(validPosition)) {
+			// return early - not a valid move
+			return;
+		}
 	}
+
+
 	validSpace.classList.add("valid");
 }
 

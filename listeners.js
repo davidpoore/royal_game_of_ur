@@ -7,7 +7,7 @@ export const pieceClickCallback = (e, gameState) => {
 		const piece = gameState.activePlayer.pieces.find((p) => p.id === parseInt(e.target.dataset.pieceId));
 		gameState.selectedPiece = piece;
 		renderSelectedPiece(piece);
-		renderValidMoves(piece, gameState.lastDiceRoll);
+		renderValidMoves(gameState);
 	}
 }
 
