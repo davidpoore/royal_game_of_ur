@@ -14,6 +14,7 @@ const renderPiece = (piece, gameState) => {
 	pieceEl.id = `player-${piece.player.id}-piece-${piece.id}`;
 	pieceEl.dataset.playerId = piece.player.id;
 	pieceEl.dataset.pieceId = piece.id
+	pieceEl.dataset.position = piece.position;
 
 	let parentEl;
 	if (piece.position === 0) {

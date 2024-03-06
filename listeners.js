@@ -74,18 +74,26 @@ export const bindEventListeners = (gameState) => {
 				clearValidMoves();
 				renderPieces(gameState.activePlayer.pieces, gameState);
 
-				// rebind click listener
-				// document.getElementById(`player-${gameState.selectedPiece.player.id}-piece-${gameState.selectedPiece.id}`).addEventListener("click", (e) => { pieceClickCallback(e, gameState); });
-
 				clearSelectedPiece();
 				gameState.selectedPiece = null;
-				gameState.currentTurnStep = GameState.turnSteps.PASS;
+
+				// check if space was a star space - if so, reset to roll step
+				if (spaceEl.classList.contains("star")) {
+					gameState.currentTurnStep = GameState.turnSteps.ROLL;
+					document.getElementById("rollDice").disabled = false;
+					document.getElementById("passTurn").disabled = true;
+
+					// clear out last roll data
+					clearLastDiceRoll();
+					gameState.lastDiceRoll = [];
+				} else {
+					gameState.currentTurnStep = GameState.turnSteps.PASS;
+					// render scores
+					renderScores(gameState);
+					document.getElementById("passTurn").disabled = false;
+				}
+
 				renderCurrentTurnStep(gameState.currentTurnStep);
-
-				// render scores
-				renderScores(gameState);
-
-				document.getElementById("passTurn").disabled = false;
 			}
 		})
 	}
