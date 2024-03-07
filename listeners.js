@@ -1,5 +1,6 @@
 import { rollDice, sumDiceRoll } from "./dice.js";
 import { renderLastDiceRoll, renderCurrentTurnStep, renderActivePlayerId, renderSelectedPiece, renderValidMoves, renderPieces, renderScores, clearValidMoves, clearSelectedPiece, clearLastDiceRoll } from "./render.js";
+import { calculateValidMoves } from "./validation.js";
 import GameState from "./gameState.js";
 
 export const pieceClickCallback = (e, gameState) => {
@@ -23,10 +24,15 @@ export const bindEventListeners = (gameState) => {
 		// disable roll dice button
 		e.target.disabled = true;
 
-		// if die roll is 0, move to pass turn automatically
-		if (sumDiceRoll(gameState.lastDiceRoll) === 0) {
-			gameState.currentTurnStep = GameState.turnSteps.PASS;
+		// if die roll is 0 OR player has no valid moves, move to pass turn automatically
+		const opponent = gameState.activePlayer.id === 1 ? gameState.playerTwo : gameState.playerOne;
+		const totalValidMoves = calculateValidMoves(gameState.activePlayer.pieces, opponent.pieces, sumDiceRoll(gameState.lastDiceRoll));
+		if (totalValidMoves === 0) {
+			// render no valid moves message and move to pass turn
+		  gameState.currentTurnStep = GameState.turnSteps.PASS;
 			renderCurrentTurnStep(gameState.currentTurnStep);
+
+			document.getElementById("noValidMoves").style.display = '';
 
 			document.getElementById("passTurn").disabled = false;
 		}
@@ -34,9 +40,10 @@ export const bindEventListeners = (gameState) => {
 
 	// pass turn listener
 	document.getElementById("passTurn").addEventListener("click", (e) => {
-		// clear out last roll data
+		// clear out last roll data and hide no valid moves if it is displayed
 		clearLastDiceRoll();
 		gameState.lastDiceRoll = [];
+		document.getElementById("noValidMoves").style.display = 'none';
 
 		if (gameState.activePlayer.id === gameState.playerOne.id) {
 			gameState.activePlayer = gameState.playerTwo;

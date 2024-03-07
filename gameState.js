@@ -7,6 +7,7 @@ const TURN_STEPS = {
 }
 
 const NON_SHARED_SPACES = [1,2,3,4,13,14,15];
+const CENTER_STAR_SPACE_POSITION = 8;
 
 export default class GameState {
 	constructor() {
@@ -21,6 +22,8 @@ export default class GameState {
 	static get turnSteps() { return TURN_STEPS; }
 
 	static get nonSharedSpaces() { return NON_SHARED_SPACES; }
+
+	static get centerStarPosition() { return CENTER_STAR_SPACE_POSITION; }
 
 	get players() { return [this.playerOne, this.playerTwo]; }
 }
