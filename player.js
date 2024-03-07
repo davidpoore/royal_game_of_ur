@@ -6,13 +6,7 @@ export default class Player {
 		this.id = id;
 		this.pieces = [];
 		for (let i = 0; i < NUM_PIECES; i++) {
-			// this.pieces.push(new Piece(i, this, 0));
-			// DEBUG ONLY: testing validation logic
-			if (i === 0) {
-				this.pieces.push(new Piece(i, this, 14));
-			} else {
-				this.pieces.push(new Piece(i, this, 15));
-			}
+			this.pieces.push(new Piece(i, this, 0));
 		}
 	}
 	

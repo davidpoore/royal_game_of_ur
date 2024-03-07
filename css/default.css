@@ -1,3 +1,9 @@
+main {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 3em 2em 2em 2em;
+}
+
 td {
 	height: 40px;
 	width: 40px;
@@ -60,4 +66,16 @@ span.die-1 {
 
 span.die-0 {
 	background-image: url(../images/triangle.svg);
+}
+
+.victoryOverlay {
+	position: fixed;
+	background: rgba(0, 0, 0, 0.5);
+	text-align: center;
+  padding-top: 400px;
+  font-size: 3em;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }

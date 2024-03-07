@@ -1,5 +1,5 @@
 import { rollDice, sumDiceRoll } from "./dice.js";
-import { renderLastDiceRoll, renderCurrentTurnStep, renderActivePlayerId, renderSelectedPiece, renderValidMoves, renderPieces, renderScores, clearValidMoves, clearSelectedPiece, clearLastDiceRoll } from "./render.js";
+import { renderLastDiceRoll, renderCurrentTurnStep, renderActivePlayerId, renderSelectedPiece, renderValidMoves, renderPieces, renderScores, renderGameState, clearValidMoves, clearSelectedPiece, clearLastDiceRoll } from "./render.js";
 import { calculateValidMoves } from "./validation.js";
 import GameState from "./gameState.js";
 
@@ -97,6 +97,12 @@ export const bindEventListeners = (gameState) => {
 					gameState.currentTurnStep = GameState.turnSteps.PASS;
 					// render scores
 					renderScores(gameState);
+					// if active player has a score of 7, they win! Display victory overly and new game button
+					if (gameState.activePlayer.score === 7) {
+						document.getElementById("victoryMessage").innerHTML = `Player ${gameState.activePlayer.id} Wins!`;
+						document.getElementById("victoryOverlay").style.display = '';
+						return;
+					}
 					document.getElementById("passTurn").disabled = false;
 				}
 
@@ -104,4 +110,13 @@ export const bindEventListeners = (gameState) => {
 			}
 		})
 	}
+
+	// new game button listener
+	document.getElementById("newGame").addEventListener("click", (e) => {
+		document.getElementById("victoryOverlay").style.display = 'none';
+		clearLastDiceRoll();
+		document.getElementById("rollDice").disabled = false;
+		gameState = new GameState();
+		renderGameState(gameState);
+	});
 }
