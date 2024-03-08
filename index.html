@@ -9,9 +9,16 @@
 			<div class="victoryMessage" id="victoryMessage"></div>
 			<button type="button" id="newGame">New Game</button>
 		</section>
+		<header>
+			<h1>The Royal Game of Ur</h1>
+		</header>
 		<main>
+			<section>
+				<div class="piecesLabel">Player 2 Pieces: </div>
+				<div id="player-2-reserves" class="reserves"></div>
+			</section>
 			<section id="board" name="board">
-				<table>
+				<table class="board">
 					<tr>
 						<td class="space star" id="player-2-space-4" data-position="4">
 						</td>
@@ -21,10 +28,12 @@
 						</td>
 						<td class="space" id="player-2-space-1" data-position="1">
 						</td>
-						<td class="empty">
+						<td class="space empty">
 						</td>
 						<td class="space home" id="player-2-space-15" data-position="15">
-							HOME
+							<div class="circle">
+								<span>HOME</span>
+							</div>
 						</td>
 						<td class="space" id="player-2-space-14" data-position="14">
 						</td>
@@ -58,10 +67,12 @@
 						</td>
 						<td class="space" id="player-1-space-1" data-position="1">
 						</td>
-						<td class="empty">
+						<td class="space empty">
 						</td>
 						<td class="space home" id="player-1-space-15" data-position="15">
-							HOME
+							<div class="circle">
+								<span>HOME</span>
+							</div>
 						</td>
 						<td class="space" id="player-1-space-14" data-position="14">
 						</td>
@@ -71,25 +82,8 @@
 				</table>
 			</section>
 			<section>
-				Player One score: <span id="player-1-score"></span>
-			</section>
-			<section>
-				Player Two score: <span id="player-2-score"></span>
-			</section>
-			<section>
-				Active Player is Player <span id="activePlayerId"></span>
-			</section>
-			<section>
-				Current Turn Step is "<span id="currentTurnStep"></span>"
-			</section>
-			<section>
-				Selected Piece is <span id="selectedPieceInfo"></span>
-			</section>
-			<section>
-				<span>Player 1 Reserves: </span><span id="player-1-reserves"></span>
-			</section>
-			<section>
-				<span>Player 2 Reserves: </span><span id="player-2-reserves"></span>
+				<div class="piecesLabel">Player 1 Pieces: </div>
+				<div id="player-1-reserves" class="reserves"></div>
 			</section>
 			<section>
 				<button type="button" id="rollDice">Roll Dice</button> Last Dice Roll: <span id="lastDiceRoll"></span>
@@ -97,6 +91,23 @@
 			<section>
 				<button type="button" id="passTurn" disabled>Pass Turn</button>
 				<span style="display: none;" id="noValidMoves">No Valid Moves!</span>
+			</section>
+			<section id="debugInfo">
+				<section>
+					Player One score: <span id="player-1-score"></span>
+				</section>
+				<section>
+					Player Two score: <span id="player-2-score"></span>
+				</section>
+				<section>
+					Active Player is Player <span id="activePlayerId"></span>
+				</section>
+				<section>
+					Current Turn Step is "<span id="currentTurnStep"></span>"
+				</section>
+				<section>
+					Selected Piece is <span id="selectedPieceInfo"></span>
+				</section>
 			</section>
 		</main>
 	</body>

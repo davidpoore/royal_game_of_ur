@@ -70,6 +70,20 @@ export const clearValidMoves = () => {
 	}
 }
 
+export const highlightActivePieceEl = (piece) => {
+	const pieceEl = document.getElementById(`player-${piece.player.id}-piece-${piece.id}`);
+	pieceEl.classList.add("active");
+}
+
+export const clearActivePieceEls = () => {
+	const activePieceEls = document.getElementsByClassName("piece active");
+	if (activePieceEls.length > 0) {
+		for (let activePieceEl of activePieceEls) {
+			selectedPieceEl.classList.remove("active");
+		}
+	}
+}
+
 export const renderSelectedPiece = (piece) => {
 	// clear previous selection
 	clearSelectedPiece();

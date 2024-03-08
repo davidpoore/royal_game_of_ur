@@ -1,5 +1,5 @@
 import { rollDice, sumDiceRoll } from "./dice.js";
-import { renderLastDiceRoll, renderCurrentTurnStep, renderActivePlayerId, renderSelectedPiece, renderValidMoves, renderPieces, renderScores, renderGameState, clearValidMoves, clearSelectedPiece, clearLastDiceRoll } from "./render.js";
+import { renderLastDiceRoll, renderCurrentTurnStep, renderActivePlayerId, renderSelectedPiece, renderValidMoves, renderPieces, renderScores, renderGameState, clearValidMoves, clearSelectedPiece, clearLastDiceRoll, clearActivePieceEls } from "./render.js";
 import { calculateValidMoves } from "./validation.js";
 import GameState from "./gameState.js";
 
@@ -83,6 +83,8 @@ export const bindEventListeners = (gameState) => {
 
 				clearSelectedPiece();
 				gameState.selectedPiece = null;
+
+				clearActivePieceEls();
 
 				// check if space was a star space - if so, reset to roll step
 				if (spaceEl.classList.contains("star")) {

@@ -1,21 +1,41 @@
+body {
+	background-color: burlywood;
+	font-family: Georgia, serif;
+}
+
+header {
+	text-align: center;
+}
+
 main {
 	max-width: 800px;
 	margin: 0 auto;
-	padding: 3em 2em 2em 2em;
 }
 
-td {
-	height: 40px;
-	width: 40px;
-	border: 1px solid black;
+.board {
+	border-collapse: collapse;
+	margin-bottom: 20px;
 }
 
-td.empty {
+.space {
+	height: 80px;
+	width: 80px;
+	border: 12px solid navy;
+	background-color: antiquewhite;
+}
+
+.space.empty {
 	pointer-events: none;
 }
 
-td.empty, td.home {
+.space.home {
+	text-align: center;
+	color: rgba(0, 0, 0, 0.25);
+}
+
+.space.empty, .space.home {
 	border: none;
+	background-color: transparent;
 }
 
 .space.star {
@@ -27,27 +47,71 @@ td.empty, td.home {
 }
 
 .space.valid {
-	background-color: yellow;
+	background-color: lightgreen;
+}
+
+.circle {
+	background-color: transparent;
+	border: 1px solid rgba(0, 0, 0, 0.25);
+	height: 80px;
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	width: 80px;
+	display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .piece {
-	height: 25px;
-  width: 25px;
+	height: 50px;
+  width: 50px;
 	border-radius: 50%;
-	display: inline-block;
+}
+
+.piece.active {
+	filter: drop-shadow(0 0 0.2rem green);
 }
 
 .piece.selectedPiece {
-	border: 2px solid green;
+	border: 2px solid lightgreen;
+}
+
+.reserves .piece {
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.space .piece {
+	display: block;
+	margin: 0 auto;
+}
+
+.piecesLabel {
+	margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.reserves {
+	margin-bottom: 20px;
+  display: inline-block;
+  padding-right: 10px;
+  background-color: firebrick;
+  padding: 10px 10px 10px 0;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	min-width: 448px;
 }
 
 .p1 {
-	background-color: red;
-
+	background-color: dimgray;
+  border: 2px solid black;
 }
 
 .p2 {
-	background-color: blue;
+	background-color: black;
+  border: 2px solid black;
 }
 
 span.die {

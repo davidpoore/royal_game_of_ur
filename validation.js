@@ -1,4 +1,5 @@
 import GameState from "./gameState.js";
+import { highlightActivePieceEl } from "./render.js"
 
 export const calculateValidMovesForPiece = (piece, activePiecePositions, opponentPiecePositions, dieRoll) => {
 	let numValidMoves = 0;
@@ -16,6 +17,10 @@ export const calculateValidMovesForPiece = (piece, activePiecePositions, opponen
 		}
 	}
 	
+	if (numValidMoves > 0) {
+		highlightActivePieceEl(piece);
+	}
+
 	return numValidMoves;
 }
 
