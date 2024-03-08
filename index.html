@@ -17,7 +17,7 @@
 				<div class="piecesLabel">Player 2 Pieces: </div>
 				<div id="player-2-reserves" class="reserves"></div>
 			</section>
-			<section id="board" name="board">
+			<section id="board" name="board" class="boardContainer">
 				<table class="board">
 					<tr>
 						<td class="space star" id="player-2-space-4" data-position="4">
@@ -31,8 +31,8 @@
 						<td class="space empty">
 						</td>
 						<td class="space home" id="player-2-space-15" data-position="15">
-							<div class="circle">
-								<span>HOME</span>
+							<div class="circle" data-position="15">
+								<span data-position="15">HOME</span>
 							</div>
 						</td>
 						<td class="space" id="player-2-space-14" data-position="14">
@@ -70,8 +70,8 @@
 						<td class="space empty">
 						</td>
 						<td class="space home" id="player-1-space-15" data-position="15">
-							<div class="circle">
-								<span>HOME</span>
+							<div class="circle" data-position="15">
+								<span data-position="15">HOME</span>
 							</div>
 						</td>
 						<td class="space" id="player-1-space-14" data-position="14">
@@ -80,28 +80,36 @@
 						</td>
 					</tr>
 				</table>
+				<section id="scoresAndDice" class="scoresAndDice">
+					<section class="score top">
+						Player 2 Score: <span id="player-2-score"></span>
+					</section>
+					<section class="rollDiceContainer">
+						<section class="activePlayerInfo">
+							Player <span id="activePlayerId"></span>'s Turn
+						</section>
+						<div class="rollDice">
+							<div class="lastDiceRoll">
+								<div id="lastDiceRoll" class="dice"></div>
+								<div id="lastDiceRollTotal"></div>
+							</div>
+							<button type="button" id="rollDice">Roll Dice</button>
+						</div>
+					</section>
+					<section class="score bottom">
+						Player 1 Score: <span id="player-1-score"></span>
+					</section>
+				</section>
 			</section>
 			<section>
 				<div class="piecesLabel">Player 1 Pieces: </div>
 				<div id="player-1-reserves" class="reserves"></div>
 			</section>
 			<section>
-				<button type="button" id="rollDice">Roll Dice</button> Last Dice Roll: <span id="lastDiceRoll"></span>
-			</section>
-			<section>
 				<button type="button" id="passTurn" disabled>Pass Turn</button>
 				<span style="display: none;" id="noValidMoves">No Valid Moves!</span>
 			</section>
-			<section id="debugInfo">
-				<section>
-					Player One score: <span id="player-1-score"></span>
-				</section>
-				<section>
-					Player Two score: <span id="player-2-score"></span>
-				</section>
-				<section>
-					Active Player is Player <span id="activePlayerId"></span>
-				</section>
+			<section id="debugInfo" style="display: none;">
 				<section>
 					Current Turn Step is "<span id="currentTurnStep"></span>"
 				</section>

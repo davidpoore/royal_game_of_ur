@@ -100,23 +100,24 @@ export const renderSelectedPiece = (piece) => {
 export const clearLastDiceRoll = () => {
 	const diceEl = document.getElementById("lastDiceRoll");
 	diceEl.innerHTML = '';
+	const totalEl = document.getElementById("lastDiceRoll");
+	totalEl.innerHTML = '';
 }
 
 export const renderLastDiceRoll = (lastDiceRoll) => {
-	if (lastDiceRoll.length === 4) {
-		const diceEl = document.getElementById("lastDiceRoll");
-		
-		lastDiceRoll.forEach((die) => {
-			const dieEl = document.createElement("span");
-			dieEl.classList.add("die");
-			dieEl.classList.add(`die-${die}`);
-			diceEl.appendChild(dieEl);
-		});
-		
-		const totalSpan = document.createElement("span");
-		totalSpan.innerHTML = `(Total: ${sumDiceRoll(lastDiceRoll)})`;
-		diceEl.append(totalSpan);
-	}
+	clearLastDiceRoll();
+
+	const diceEl = document.getElementById("lastDiceRoll");
+
+	lastDiceRoll.forEach((die) => {
+		const dieEl = document.createElement("span");
+		dieEl.classList.add("die");
+		dieEl.classList.add(`die-${die}`);
+		diceEl.appendChild(dieEl);
+	});
+
+	const total = document.getElementById("lastDiceRollTotal");
+	total.innerHTML = `(${sumDiceRoll(lastDiceRoll)})`;
 }
 
 export const renderActivePlayerId = (activePlayerId) => {

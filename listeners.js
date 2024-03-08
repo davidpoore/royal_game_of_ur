@@ -41,7 +41,6 @@ export const bindEventListeners = (gameState) => {
 	// pass turn listener
 	document.getElementById("passTurn").addEventListener("click", (e) => {
 		// clear out last roll data and hide no valid moves if it is displayed
-		clearLastDiceRoll();
 		gameState.lastDiceRoll = [];
 		document.getElementById("noValidMoves").style.display = 'none';
 
@@ -91,10 +90,6 @@ export const bindEventListeners = (gameState) => {
 					gameState.currentTurnStep = GameState.turnSteps.ROLL;
 					document.getElementById("rollDice").disabled = false;
 					document.getElementById("passTurn").disabled = true;
-
-					// clear out last roll data
-					clearLastDiceRoll();
-					gameState.lastDiceRoll = [];
 				} else {
 					gameState.currentTurnStep = GameState.turnSteps.PASS;
 					// render scores
@@ -116,7 +111,6 @@ export const bindEventListeners = (gameState) => {
 	// new game button listener
 	document.getElementById("newGame").addEventListener("click", (e) => {
 		document.getElementById("victoryOverlay").style.display = 'none';
-		clearLastDiceRoll();
 		document.getElementById("rollDice").disabled = false;
 		gameState = new GameState();
 		renderGameState(gameState);

@@ -15,7 +15,7 @@ export default class GameState {
     this.playerTwo = new Player(2);
 		this.activePlayer = this.playerOne;
 		this.currentTurnStep = TURN_STEPS.ROLL;
-		this.lastDiceRoll = [];
+		this.lastDiceRoll = [0,0,0,0];
 		this.selectedPiece = null;
 	}
 
