@@ -3,6 +3,23 @@ import { renderLastDiceRoll, renderCurrentTurnStep, renderActivePlayerId, render
 import { calculateValidMoves } from "./validation.js";
 import GameState from "./gameState.js";
 
+const passTurn = (gameState) => {
+	document.getElementById("noValidMoves").style.visibility = 'hidden';
+
+	if (gameState.activePlayer.id === gameState.playerOne.id) {
+		gameState.activePlayer = gameState.playerTwo;
+	} else if (gameState.activePlayer.id === gameState.playerTwo.id) {
+		gameState.activePlayer = gameState.playerOne;
+	}
+	renderActivePlayerId(gameState.activePlayer.id);
+
+	// set turn step to roll after setting active player
+	gameState.currentTurnStep = GameState.turnSteps.ROLL;
+	renderCurrentTurnStep(gameState.currentTurnStep);
+
+	document.getElementById("rollDice").disabled = false;
+}
+
 export const pieceClickCallback = (e, gameState) => {
 	if (gameState.currentTurnStep === GameState.turnSteps.MOVE && parseInt(e.target.dataset.playerId) === gameState.activePlayer.id) {
 		const piece = gameState.activePlayer.pieces.find((p) => p.id === parseInt(e.target.dataset.pieceId));
@@ -28,36 +45,14 @@ export const bindEventListeners = (gameState) => {
 		const opponent = gameState.activePlayer.id === 1 ? gameState.playerTwo : gameState.playerOne;
 		const totalValidMoves = calculateValidMoves(gameState.activePlayer.pieces, opponent.pieces, sumDiceRoll(gameState.lastDiceRoll));
 		if (totalValidMoves === 0) {
-			// render no valid moves message and move to pass turn
+			// render no valid moves message and move to pass turn after a short delay
 		  gameState.currentTurnStep = GameState.turnSteps.PASS;
 			renderCurrentTurnStep(gameState.currentTurnStep);
 
-			document.getElementById("noValidMoves").style.display = '';
+			document.getElementById("noValidMoves").style.visibility = '';
 
-			document.getElementById("passTurn").disabled = false;
+			setTimeout(() => passTurn(gameState), 2000);
 		}
-	});
-
-	// pass turn listener
-	document.getElementById("passTurn").addEventListener("click", (e) => {
-		// clear out last roll data and hide no valid moves if it is displayed
-		gameState.lastDiceRoll = [];
-		document.getElementById("noValidMoves").style.display = 'none';
-
-		if (gameState.activePlayer.id === gameState.playerOne.id) {
-			gameState.activePlayer = gameState.playerTwo;
-		} else if (gameState.activePlayer.id === gameState.playerTwo.id) {
-			gameState.activePlayer = gameState.playerOne;
-		}
-		renderActivePlayerId(gameState.activePlayer.id);
-
-		// set turn step to roll after setting active player
-		gameState.currentTurnStep = GameState.turnSteps.ROLL;
-		renderCurrentTurnStep(gameState.currentTurnStep);
-
-		// enable roll dice button & disable pass turn button
-		e.target.disabled = true;
-		document.getElementById("rollDice").disabled = false;
 	});
 
 	// select valid space listener
@@ -89,7 +84,6 @@ export const bindEventListeners = (gameState) => {
 				if (spaceEl.classList.contains("star")) {
 					gameState.currentTurnStep = GameState.turnSteps.ROLL;
 					document.getElementById("rollDice").disabled = false;
-					document.getElementById("passTurn").disabled = true;
 				} else {
 					gameState.currentTurnStep = GameState.turnSteps.PASS;
 					// render scores
@@ -100,7 +94,8 @@ export const bindEventListeners = (gameState) => {
 						document.getElementById("victoryOverlay").style.display = '';
 						return;
 					}
-					document.getElementById("passTurn").disabled = false;
+					// passTurn after move
+					passTurn(gameState);
 				}
 
 				renderCurrentTurnStep(gameState.currentTurnStep);

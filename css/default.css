@@ -7,7 +7,7 @@ body {
 header {
 	text-align: center;
 	padding: 1em;
-  background-color: navy;
+  background-color: midnightblue;
   margin-bottom: 20px;
   color: white;
   border-bottom: 4px solid white;
@@ -85,12 +85,22 @@ button:disabled {
 	border-radius: 8px;
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
-	padding: 8px;
+	padding: 12px 8px 8px 8px;
   margin-right: 4px;
 }
 
 .dice span.die:not(:last-child) {
 	margin-right: 2px;
+}
+
+.noValidMoves {
+	display: flex;
+  align-items: flex-end;
+  flex: 0 0 auto;
+}
+
+.noValidMovesMessage {
+	padding-top: 12px;
 }
 
 .space {
@@ -106,7 +116,7 @@ button:disabled {
 
 .space.home {
 	text-align: center;
-	color: rgba(0, 0, 0, 0.25);
+	color: rgba(0, 0, 0, 0.5);
 }
 
 .space.empty, .space.home {
@@ -115,7 +125,7 @@ button:disabled {
 }
 
 .space.star {
-	background-image: url(../images/star.svg);
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='1920' height='1920' version='1.1' viewBox='0 0 1920 1920' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Cg transform='translate(-5.6572 .00097546)' style='mix-blend-mode:normal'%3E%3Cg%3E%3Cpath d='m965.66 50.027-188.46 454.99-454.98-188.46 188.46 454.99-454.99 188.46 454.99 188.46h2e-3l-188.46 454.99 454.99-188.46 188.46 454.99 188.46-454.99 454.99 188.46-188.46-454.99 454.99-188.46-454.99-188.46 188.46-454.99-454.99 188.46z' fill='darkred'/%3E%3Cpath d='m965.66 183.55v776.45l-160.81-388.23z' fill='%23fff'/%3E%3Cpath d='m1514.7 410.96-549.04 549.04 160.81-388.23z' fill='%23fff'/%3E%3C/g%3E%3Cg transform='rotate(90 962.83 962.83)'%3E%3Cpath d='m960 183.55v776.45l-160.81-388.23z' fill='%23fff'/%3E%3C/g%3E%3Cg fill='%23fff'%3E%3Cpath d='m1514.7 1509-549.04-549.04 388.23 160.81z'/%3E%3Cpath d='m965.66 1736.5v-776.45l160.81 388.23z'/%3E%3Cpath d='m416.62 1509 549.04-549.04-160.81 388.23z'/%3E%3Cpath d='m189.2 960h776.45l-388.23 160.81z'/%3E%3Cpath d='m416.62 410.96 549.04 549.04-388.23-160.81z'/%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 	background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -128,7 +138,7 @@ button:disabled {
 
 .circle {
 	background-color: transparent;
-	border: 1px solid rgba(0, 0, 0, 0.25);
+	border: 1px solid rgba(0, 0, 0, 0.5);
 	height: 80px;
 	border-radius: 50%;
 	-moz-border-radius: 50%;
@@ -146,7 +156,7 @@ button:disabled {
 }
 
 .piece.active {
-	filter: drop-shadow(0 0 0.2rem green);
+	filter: drop-shadow(0 0 0.25rem darkgreen);
 }
 
 .piece.selectedPiece {
@@ -172,12 +182,13 @@ button:disabled {
 	margin-bottom: 20px;
   display: inline-block;
   padding-right: 10px;
-  background-color: firebrick;
+  background-color: beige;
   padding: 10px 10px 10px 0;
 	border-radius: 8px;
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
 	min-width: 448px;
+	min-height: 57px;
 }
 
 .p1 {
@@ -200,17 +211,18 @@ span.die {
 	background-origin: content-box,padding-box;
 }
 
-span.die-1 {
-	background-image: url(../images/triangle_with_pip.svg);
+span.die-0 {
+  background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='utf-8'?%3E%3C!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg fill='%23000000' version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='800px' height='800px' viewBox='0 0 120 120' enable-background='new 0 0 120 120' xml:space='preserve'%3E%3Cpolygon points='0.233,106.52 60,3 119.768,106.52 '/%3E%3C/svg%3E");
 }
 
-span.die-0 {
-	background-image: url(../images/triangle.svg);
+span.die-1 {
+  background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='utf-8'?%3E%3C!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools --%3E%3C!DOCTYPE svg PUBLIC '-//W3C//DTD SVG 1.1//EN' 'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3E%3Csvg fill='%23000000' version='1.1' id='Layer_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='800px' height='800px' viewBox='0 0 120 120' enable-background='new 0 0 120 120' xml:space='preserve'%3E%3Cpolygon points='0.233,106.52 60,3 119.768,106.52 '/%3E%3Cpolygon fill='%23FFFFFF' points='33.25,50 60,3.5 86.85,50 '/%3E%3C/svg%3E");
 }
 
 .victoryOverlay {
 	position: fixed;
-	background: rgba(0, 0, 0, 0.5);
+	background: rgba(0, 0, 0, 0.9);
+	color: antiquewhite;
 	text-align: center;
   padding-top: 400px;
   font-size: 3em;

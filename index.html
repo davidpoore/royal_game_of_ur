@@ -5,6 +5,7 @@
 		<script src="main.js" type="module"></script>
 	</head>
 	<body>
+		<script>0</script> <!-- this is to fix a layout flash bug in Firefox -->
 	  <section style="display: none;" class="victoryOverlay" id="victoryOverlay">
 			<div class="victoryMessage" id="victoryMessage"></div>
 			<button type="button" id="newGame">New Game</button>
@@ -96,6 +97,9 @@
 							<button type="button" id="rollDice">Roll Dice</button>
 						</div>
 					</section>
+					<section class="noValidMoves">
+						<span class="noValidMovesMessage" style="visibility: hidden;" id="noValidMoves">No Valid Moves!</span>
+					</section>
 					<section class="score bottom">
 						Player 1 Score: <span id="player-1-score"></span>
 					</section>
@@ -104,10 +108,6 @@
 			<section>
 				<div class="piecesLabel">Player 1 Pieces: </div>
 				<div id="player-1-reserves" class="reserves"></div>
-			</section>
-			<section>
-				<button type="button" id="passTurn" disabled>Pass Turn</button>
-				<span style="display: none;" id="noValidMoves">No Valid Moves!</span>
 			</section>
 			<section id="debugInfo" style="display: none;">
 				<section>
